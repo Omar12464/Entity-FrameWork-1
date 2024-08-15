@@ -26,6 +26,7 @@ namespace Entity_FrameWork_1
             dbcontext.Course_Inst.Add(new Models.Course_Inst { CrsId = 1, Evaluate = "Excellent", InstId = 1 });
 
             #endregion
+            Console.WriteLine();
         }
     }
 }
