@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Entity_FrameWork_1.Models
 {
+    [Table("Student",Schema ="dbo")]
     internal class Student
     {
         #region Convention

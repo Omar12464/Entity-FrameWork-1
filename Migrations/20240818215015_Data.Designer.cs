@@ -4,6 +4,7 @@ using Entity_FrameWork_1.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Entity_FrameWork_1.Migrations
 {
     [DbContext(typeof(SchoolDbContext))]
-    partial class SchoolDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240818215015_Data")]
+    partial class Data
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,32 +24,6 @@ namespace Entity_FrameWork_1.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("ClassLibrary1.Department", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 10L, 10);
-
-                    b.Property<int>("DateOfCreation")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("int")
-                        .HasComputedColumnSql("GETDATE()");
-
-                    b.Property<int>("InsId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("DeptName");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Deapartment", "dbo");
-                });
 
             modelBuilder.Entity("Entity_FrameWork_1.Models.Course", b =>
                 {
@@ -64,8 +41,8 @@ namespace Entity_FrameWork_1.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("varchar")
-                        .HasAnnotation("MinLength", 20);
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar");
 
                     b.Property<int>("TopId")
                         .HasColumnType("int");
@@ -90,20 +67,44 @@ namespace Entity_FrameWork_1.Migrations
                     b.ToTable("Course_Inst", "dbo");
                 });
 
-            modelBuilder.Entity("Entity_FrameWork_1.Models.Instructor", b =>
+            modelBuilder.Entity("Entity_FrameWork_1.Models.Department", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("HiringDate")
+                        .HasColumnType("int");
+
+                    b.Property<int>("InsId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Department", "dbo");
+                });
+
+            modelBuilder.Entity("Entity_FrameWork_1.Models.Instructor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Bonus")
-                        .HasColumnType("money");
+                    b.Property<int>("Bonus")
+                        .HasColumnType("int");
 
                     b.Property<int>("DepId")
                         .HasColumnType("int");
@@ -114,11 +115,10 @@ namespace Entity_FrameWork_1.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(80)
-                        .HasColumnType("nvarchar(80)")
-                        .HasAnnotation("MinLegth", 20);
+                        .HasColumnType("varchar");
 
-                    b.Property<double>("Salary")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Salary")
+                        .HasColumnType("money");
 
                     b.HasKey("Id");
 
@@ -146,14 +146,12 @@ namespace Entity_FrameWork_1.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"), 20L, 20);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"));
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .ValueGeneratedOnAdd()
                         .HasMaxLength(100)
-                        .HasColumnType("varchar")
-                        .HasDefaultValue("Cairo");
+                        .HasColumnType("varchar");
 
                     b.Property<int?>("Age")
                         .HasColumnType("int");
@@ -168,7 +166,7 @@ namespace Entity_FrameWork_1.Migrations
 
                     b.Property<string>("LName")
                         .IsRequired()
-                        .HasMaxLength(50)
+                        .HasMaxLength(100)
                         .HasColumnType("varchar");
 
                     b.HasKey("Id");
@@ -186,7 +184,8 @@ namespace Entity_FrameWork_1.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 

@@ -8,20 +8,21 @@ using System.Threading.Tasks;
 
 namespace Entity_FrameWork_1.Models
 {
+    [Table("Topic",Schema="dbo")]
     internal class Topic
     {
 
         #region By Convention
-        //public int Id { get; set; }
-        //public string Name { get; set; } 
+        public int Id { get; set; }
+        public string Name { get; set; }
         #endregion
         #region Data Annotation
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-        [Required]
-        [StringLength(50,MinimumLength =10)]
-        public string? Name { get; set; } 
+        //[Key]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        ////public int Id { get; set; }
+        ////[Required]
+        ////[StringLength(50,MinimumLength =10)]
+        ////public string? Name { get; set; } 
         #endregion
     }
 }
